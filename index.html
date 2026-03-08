@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discount Card Activation</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-indigo-200 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-lg border border-gray-200">
+  <h1 class="text-3xl font-bold mb-6 text-center text-indigo-600">Activate Your Discount Card</h1>
+
+  <form id="activationForm" class="space-y-5">
+    <input type="text" id="name" placeholder="Your Full Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400">
+    <input type="text" id="phone" placeholder="Phone Number" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400">
+    <input type="text" id="referrer" placeholder="Referrer Card ID (optional)" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400">
+    <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 font-semibold">Activate Card</button>
+  </form>
+
+  <p id="message" class="mt-5 text-center text-lg font-medium"></p>
+</div>
+
+<script>
+  // QR থেকে card_id ধরার কোড
+  const urlParams = new URLSearchParams(window.location.search);
+  const cardId = urlParams.get('card');
+
+  const form = document.getElementById('activationForm');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const referrer = document.getElementById('referrer').value.trim();
+
+    if(!name || !phone){
+      message.textContent = "Name and Phone are required!";
+      message.className = "text-red-600 mt-5 text-center font-medium";
+      return;
+    }
+
+    console.log({cardId, name, phone, referrer});
+    message.textContent = "Form data ready! API connection পরে add হবে.";
+    message.className = "text-green-600 mt-5 text-center font-medium";
+  });
+</script>
+</body>
+  </html>
